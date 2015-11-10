@@ -7,16 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="addItems.html">
-<p>item<input type="text" name="itemName" required="required"/></p>
+<form action="addItems.html" method="post">
+<p>item<input type="text" name="item" required="required"/></p>
 
-<p>quantity<input type="number" name="itemQuantity" required="required"/></p>
+<p>quantity<input type="number" name="quantity" required="required"/></p>
 
-<p>Product Code<input type="text" name="productCode" required="required"/></p>
+<p>Product Code<input type="text" name="product_code" required="required"/></p>
 
-<p>Supplier<input type="text" name="supplier" required="required"/></p>
+<p>Supplier<input type="text" name="manufacturer" required="required"/></p>
 
-<p>date Delivered<input type="date" name="dateDelivered" required="required"/></p>
+<p>date Delivered<input type="date" name="date_delivered" required="required"/></p>
 <p><input type="submit" value="add"/>
 </form>
 </body>
