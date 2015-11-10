@@ -17,7 +17,7 @@ import edu.ust.erdbms.utility.sql.BeanFactory;
 import edu.ust.erdbms.utility.sql.SQLOperations;
 
 
-@WebServlet("/additem.html")
+@WebServlet("/addItems.html")
 public class addItemServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Connection connection;
