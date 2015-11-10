@@ -39,3 +39,56 @@ ALTER LOGIN [ics123_user3csc] DISABLE
 GO
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+database schema
+
+
+USE [ProductsDB]
+GO
+
+/****** Object:  Table [dbo].[Product]    Script Date: 11/11/2015 03:14:05 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[Product](
+	[date_delivered] [date] NULL,
+	[item] [varchar](50) NULL,
+	[manufacturer] [varchar](max) NULL,
+	[product_code] [int] NOT NULL,
+	[quantity] [int] NULL,
+ CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED 
+(
+	[product_code] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
