@@ -3,12 +3,18 @@ package edu.ust.erdbms.utility.sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+
+import java.sql.Statement;
 
 import javax.sql.DataSource;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
+
 
 
 
@@ -42,7 +48,34 @@ public class SQLOperations implements SQLCommands {
 	public static Connection getConnection() {
 		return (connection!=null)?connection:getDBConnection();
 	}
-	
+	public static int updateItem(ProductBean product, 
+			int id, Connection connection) {
+			int updated = 0;
+			try {
+				connection.setAutoCommit(false);
+		        PreparedStatement pstmt = 
+		        	connection.prepareStatement(UPDATE_ITEM);
+		        pstmt.setDate(1, product.getDate_delivered()); 
+		        pstmt.setString(2, product.getItem());
+		        pstmt.setString(3, product.getManufacturer());
+		        pstmt.setInt(4, product.getQuantity()); 
+		        pstmt.setInt(5, id); 
+		        updated = pstmt.executeUpdate();   
+		        connection.commit();
+			} catch (SQLException sqle) {
+				System.out.println("SQLException - updateEmployee: " 
+					+ sqle.getMessage());
+				
+				try {
+					connection.rollback();
+				} catch (SQLException sql) {
+					System.err.println("Error on Update Connection Rollback - " 
+						+ sql.getMessage());
+				}
+				return updated; 
+			}	
+			return updated;
+		}
 	public static boolean addItem(ProductBean productbean, Connection connection){
 		try {
 	        PreparedStatement pstmt = connection.prepareStatement(ADD_ITEM);
@@ -61,37 +94,11 @@ public class SQLOperations implements SQLCommands {
 		
 	}
 	
-	
-	public static EmployeeBean searchEmployee(int id, 
-		Connection connection) {
-		
-		EmployeeBean employee = new EmployeeBean();
-		 
-		try {
-	        PreparedStatement pstmt = 
-	        	connection.prepareStatement(SEARCH_EMPLOYEE);
-	        pstmt.setInt(1, id);             
-	        ResultSet rs  = pstmt.executeQuery();
-	        
-	        while (rs.next()) { 
-	        	employee.setLastName(rs.getString("lastname"));
-	        	employee.setFirstName(rs.getString("firstname"));
-	        	employee.setPosition(rs.getString("position"));
-	        	employee.setDepartment(rs.getString("department"));
-	        }
-		} catch (SQLException sqle) {
-			System.out.println("SQLException - searchEmployee: " 
-					+ sqle.getMessage());
-			return employee; 
-		}	
-		return employee;
-	}
-	
-	public static ResultSet getAllEmployees(Connection connection) {
+	public static ResultSet getAllItems(Connection connection) {
 		ResultSet rs = null;
 		try {
 			Statement stmt = connection.createStatement();
-			rs = stmt.executeQuery(GET_ALL_EMPLOYEES);  
+			rs = stmt.executeQuery(GET_ALL_ITEMS);  
 		} catch (SQLException sqle) {
 			System.out.println("SQLException - getALLEmployees: " 
 			  + sqle.getMessage());
@@ -100,46 +107,17 @@ public class SQLOperations implements SQLCommands {
 		return rs;
 	}
 	
-	public static int updateEmployee(EmployeeBean employee, 
-		int id, Connection connection) {
-		int updated = 0;
-		try {
-			connection.setAutoCommit(false);
-	        PreparedStatement pstmt = 
-	        	connection.prepareStatement(UPDATE_EMPLOYEE);
-	        pstmt.setString(1, employee.getLastName()); 
-	        pstmt.setString(2, employee.getFirstName());
-	        pstmt.setString(3, employee.getPosition());
-	        pstmt.setString(4, employee.getDepartment()); 
-	        pstmt.setInt(5, id); 
-	        updated = pstmt.executeUpdate();   
-	        connection.commit();
-		} catch (SQLException sqle) {
-			System.out.println("SQLException - updateEmployee: " 
-				+ sqle.getMessage());
-			
-			try {
-				connection.rollback();
-			} catch (SQLException sql) {
-				System.err.println("Error on Update Connection Rollback - " 
-					+ sql.getMessage());
-			}
-			return updated; 
-		}	
-		return updated;
-	}
-	
-	public static synchronized int deleteEmployee(int id, Connection connection) {
+	public static synchronized int deleteItem(int id, Connection connection) {
 		int updated = 0;
 		
 		try {
 			connection.setAutoCommit(false);
-	        PreparedStatement pstmt = connection.prepareStatement(DELETE_EMPLOYEE);
+	        PreparedStatement pstmt = connection.prepareStatement(DELETE_ITEM);
 	        pstmt.setInt(1, id);             
 	        updated  = pstmt.executeUpdate();
 	        connection.commit();
 		} catch (SQLException sqle) {
-			System.out.println("SQLException - deleteEmployee: " + sqle.getMessage());
+			System.out.println("SQLException - deleteITEM: " + sqle.getMessage());
 			
 			try {
 				connection.rollback();
@@ -150,4 +128,34 @@ public class SQLOperations implements SQLCommands {
 		}	
 		return updated;
 	}
+	
+	public static ProductBean searchProduct(int id, 
+			Connection connection) {
+			
+			ProductBean productbean = new ProductBean();
+			 
+			try {
+		        PreparedStatement pstmt = 
+		        	connection.prepareStatement(SEARCH_ITEM);
+		        pstmt.setInt(1, id);             
+		        ResultSet rs  = pstmt.executeQuery();
+		        
+		        while (rs.next()) { 
+		        	productbean.setDate_delivered(rs.getDate("date_delivered"));
+		        	productbean.setItem(rs.getString("item"));
+		        	productbean.setManufacturer(rs.getString("manufacturer"));
+		        	productbean.setProduct_code(rs.getInt("product_code"));
+		        	productbean.setQuantity(rs.getInt("quantity"));
+		        }
+			} catch (SQLException sqle) {
+				System.out.println("SQLException - searchEmployee: " 
+						+ sqle.getMessage());
+				return productbean; 
+			}	
+			return productbean;
+		}
+	
+	
+	
+	
 }

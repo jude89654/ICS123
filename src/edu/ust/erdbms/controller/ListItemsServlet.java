@@ -14,7 +14,7 @@ import java.sql.*;
 import edu.ust.erdbms.utility.sql.SQLOperations;
 
 @WebServlet("/list.html")
-public class ListEmployeesServlet extends HttpServlet {
+public class ListItemsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private Connection connection;
@@ -38,9 +38,9 @@ public class ListEmployeesServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {	
 			if (connection != null) {
-				ResultSet rs = SQLOperations.getAllEmployees(connection); 			
-				request.setAttribute("recordEmployees", rs);
-				getServletContext().getRequestDispatcher("/listemployees.jsp")
+				ResultSet rs = SQLOperations.getAllItems(connection); 			
+				request.setAttribute("productrecords", rs);
+				getServletContext().getRequestDispatcher("/listItems.jsp")
 					.forward(request, response);
 			} else {
 				System.out.println("Invalid Connection resource");

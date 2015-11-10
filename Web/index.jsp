@@ -8,9 +8,9 @@
 </head>
 <body>
 <p><a href="additems.jsp">ADD</a></p>
-<p><a href="editproducts.jsp">EDIT</a></p>
-<p><a href="deleteproducts.jsp">DELETE</a></p>
-<p><a href="viewproducts.jsp">VIEW</a></p>
+<p><a href="list.html">EDIT</a></p>
+<p><a href="list.html">DELETE</a></p>
+<p><a href="list.html">VIEW</a></p>
 
 </body>
 </html>

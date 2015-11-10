@@ -1,0 +1,41 @@
+DB USERNAME
+ics123_user3csc
+DB PASSWORD
+ics123_user3csc
+
+database name = PRODUCTSDB
+
+LOGIN SCHEMA
+
+
+CREATE LOGIN [ics123_user3csc] WITH PASSWORD=N'ics123_user3csc', DEFAULT_DATABASE=[master], DEFAULT_LANGUAGE=[us_english], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF
+GO
+
+EXEC sys.sp_addsrvrolemember @loginame = N'ics123_user3csc', @rolename = N'sysadmin'
+GO
+
+EXEC sys.sp_addsrvrolemember @loginame = N'ics123_user3csc', @rolename = N'securityadmin'
+GO
+
+EXEC sys.sp_addsrvrolemember @loginame = N'ics123_user3csc', @rolename = N'serveradmin'
+GO
+
+EXEC sys.sp_addsrvrolemember @loginame = N'ics123_user3csc', @rolename = N'setupadmin'
+GO
+
+EXEC sys.sp_addsrvrolemember @loginame = N'ics123_user3csc', @rolename = N'processadmin'
+GO
+
+EXEC sys.sp_addsrvrolemember @loginame = N'ics123_user3csc', @rolename = N'diskadmin'
+GO
+
+EXEC sys.sp_addsrvrolemember @loginame = N'ics123_user3csc', @rolename = N'dbcreator'
+GO
+
+EXEC sys.sp_addsrvrolemember @loginame = N'ics123_user3csc', @rolename = N'bulkadmin'
+GO
+
+ALTER LOGIN [ics123_user3csc] DISABLE
+GO
+
+

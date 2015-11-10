@@ -2,6 +2,7 @@ package edu.ust.erdbms.controller;
 
 import java.io.IOException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -11,18 +12,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.ust.erdbms.model.EmployeeBean;
+import edu.ust.erdbms.model.ProductBean;
 import edu.ust.erdbms.utility.sql.SQLOperations;
 
-@WebServlet("/employeeupdate.html")
-public class UpdateEmployeeServlet extends HttpServlet {
+@WebServlet("/itemupdate.html")
+public class UpdateItemServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private Connection connection;
 	
 	public void init() throws ServletException {
-		connection = (Connection) 
-				getServletContext().getAttribute("dbConnection");
+		connection = SQLOperations.getConnection();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,26 +32,29 @@ public class UpdateEmployeeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = null; 
 		try {
-			EmployeeBean employee = new EmployeeBean();
-			employee.setLastName(request.getParameter("lastName"));
-			employee.setFirstName(request.getParameter("firstName"));
-			employee.setPosition(request.getParameter("position"));
-			employee.setDepartment(request.getParameter("department"));
+			ProductBean product = new ProductBean();
 			
+			String date_deliveredString = request.getParameter("date_delivered");
+			java.sql.Date date_delivered = new java.sql.Date(new SimpleDateFormat("YYYY-MM-dd").parse(date_deliveredString).getTime());
+			product.setDate_delivered(date_delivered);
+			product.setItem(request.getParameter("item"));
+			product.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+			product.setManufacturer(request.getParameter("manufacturer"));
+			request.setAttribute("today",date_delivered);
 			int recordsAffected = 
-				SQLOperations.updateEmployee(employee, 
-						Integer.parseInt(request.getParameter("employeeId")), 
+				SQLOperations.updateItem(product, 
+						Integer.parseInt(request.getParameter("product_code")), 
 						connection);
-			request.setAttribute("employee", employee);
+			request.setAttribute("productrecord", product);
 			
 			if (recordsAffected > 0) {
 				dispatcher = 
 			getServletContext().getRequestDispatcher(
-					"/viewemployee.jsp?success=true");
+					"/viewItem.jsp?status=true");
 			} else {
 				dispatcher = 
 			getServletContext().getRequestDispatcher(
-				"/viewemployee.jsp?success=false");
+				"/viewItem.jsp?status=false");
 			}
 			dispatcher.forward(request, response);		
 		} catch (Exception e) {

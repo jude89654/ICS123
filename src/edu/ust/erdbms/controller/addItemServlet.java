@@ -31,13 +31,13 @@ public class addItemServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String item = request.getParameter("itemName");
+			String item = request.getParameter("item");
 			String manufacturer=request.getParameter("manufacturer");
-			int product_code = Integer.parseInt("product_code");
-			int quantity= Integer.parseInt(request.getParameter("itemQuantity"));
+			int product_code = Integer.parseInt(request.getParameter("product_code"));
+			int quantity= Integer.parseInt(request.getParameter("quantity"));
 			
 			String date_deliveredString = request.getParameter("date_delivered");
-			java.sql.Date date_delivered = new java.sql.Date(new SimpleDateFormat("MM/dd/YYYY").parse(date_deliveredString).getTime());
+			java.sql.Date date_delivered = new java.sql.Date(new SimpleDateFormat("YYYY-MM-dd").parse(date_deliveredString).getTime());
 			
 			ProductBean productbean = BeanFactory.getInstance(date_delivered, item, 
 					manufacturer, product_code, quantity);
@@ -56,7 +56,7 @@ public class addItemServlet extends HttpServlet {
 			}
 			
 			
-			getServletContext().getRequestDispatcher("/additemstatus.jsp").forward(request, response);
+			
 			
 		} catch (NumberFormatException | ParseException e) {
 			// TODO Auto-generated catch block

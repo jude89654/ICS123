@@ -12,7 +12,7 @@
 
 <p>quantity<input type="number" name="quantity" required="required"/></p>
 
-<p>Product Code<input type="text" name="product_code" required="required"/></p>
+<p>Product Code<input type="number" name="product_code" required="required"/></p>
 
 <p>Supplier<input type="text" name="manufacturer" required="required"/></p>
 
