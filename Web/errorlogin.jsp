@@ -7,11 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="uservalidation.html" method="post">
-	<p>USERNAME:<input type="text" name="username" required="required"/></p>
-	
-	<p>password:<input type="password" name="password" required="required"/></p>
-	<p><input type="submit" value="LOGIN"/>
-</form>
+<p>error login</p>
+<a href="loginPage.jsp">back to login</a>
 </body>
 </html>
