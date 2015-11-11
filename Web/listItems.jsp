@@ -52,6 +52,8 @@
 	<% } %>
 		
 	</table>
+	
+	<a href="index.jsp">back to index</a>
 </body>
 </html>
 </body>
