@@ -7,14 +7,13 @@ public interface SQLCommands {
 	String DELETE_ITEM = "delete from product where product_code=?";
 	String GET_ALL_ITEMS = "select * from product";
 	String UPDATE_ITEM = "update product set date_delivered=?, item=?, manufacturer=?, quantity=? where product_code=?";
+	String SEARCH_STRING="select * from Product where item like ? "
+			+ "OR manufacturer like ? "
+			+ "OR quantity like ?  "
+			+ " OR date_delivered like ?"
+			+ " OR product_code like ?  "; 
 	
-	String INSERT_EMPLOYEE = "insert into employee(lastname, firstname, position, department) values(?,?,?,?)";
-	String GET_ALL_EMPLOYEES = "select * from employee";
-	String SEARCH_EMPLOYEE = "select * from employee where id=?";
-	
-	String UPDATE_EMPLOYEE = "update employee set lastname = ?, "
-		+ "firstname = ?, position=?, "
-		+ "department=? where id = ?";
-	
-	String DELETE_EMPLOYEE = "delete from employee where id=?";
+	String SORT_BY_PRODUCT_CODE = "SELECT * FROM product ORDER BY product_code ASC";
+	String SORT_BY_QUANTITY = "SELECT * FROM product ORDER BY quantity DESC";
+	String SORT_BY_DATE=  "SELECT * FROM product ORDER BY date_delivered ASC";
 }

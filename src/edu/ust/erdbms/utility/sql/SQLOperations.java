@@ -48,6 +48,40 @@ public class SQLOperations implements SQLCommands {
 	public static Connection getConnection() {
 		return (connection!=null)?connection:getDBConnection();
 	}
+	
+	public static ResultSet searchProducts(String search,Connection connection,String[] sortby){
+		ResultSet rs=null;
+		try {
+			String query = SEARCH_STRING;
+			if(sortby!=null){
+			query+=" order by";
+			for(int x=0;x<sortby.length;x++){
+				if(sortby[x].equals("product_code"))query+=" product_code asc ";
+				if(sortby[x].equals("quantity"))query+=" quantity asc ";
+				if(sortby[x].equals("manufacturer"))query+=" manufacturer asc ";
+				if(sortby[x].equals("item"))query+=" item asc ";
+				if(x<sortby.length-1)query+=",";
+			}	
+			System.out.print(query);
+			}
+			PreparedStatement pstmt = connection.prepareStatement(query);
+			pstmt.setString(1,"%"+search+"%");
+			pstmt.setString(2,"%"+search+"%");
+			pstmt.setString(3,"%"+search+"%");
+			pstmt.setString(4,"%"+search+"%");
+			pstmt.setString(5,"%"+search+"%");
+			
+			rs = pstmt.executeQuery();
+		} catch (SQLException e) {
+			System.out.print("Searchproducts error-");
+			e.printStackTrace();
+		}
+		
+		return rs;
+		
+	}
+	
+	
 	public static int updateItem(ProductBean product, 
 			int id, Connection connection) {
 			int updated = 0;

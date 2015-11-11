@@ -19,5 +19,6 @@
 <p>date Delivered<input type="date" name="date_delivered" required="required"/></p>
 <p><input type="submit" value="add"/>
 </form>
+<a href="index.html">back to index</a>
 </body>
 </html>
