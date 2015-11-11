@@ -9,10 +9,12 @@ import java.sql.SQLException;
 
 
 import java.sql.Statement;
+import java.util.Calendar;
 
 import javax.sql.DataSource;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
 
 
 
@@ -48,6 +50,41 @@ public class SQLOperations implements SQLCommands {
 	public static Connection getConnection() {
 		return (connection!=null)?connection:getDBConnection();
 	}
+	
+	public static ResultSet getAllSold(Connection connection) {
+		ResultSet rs = null;
+		try {
+			Statement stmt = connection.createStatement();
+			rs = stmt.executeQuery(GET_ALL_SOLD);  
+		} catch (SQLException sqle) {
+			System.out.println("SQLException - getALLEmployees: " 
+			  + sqle.getMessage());
+			return rs; 
+		}	
+		return rs;
+	}
+	
+	public static boolean addSoldProduct(ProductBean productbean, Connection connection){
+			try {
+		        PreparedStatement pstmt = connection.prepareStatement(ADD_SOLD);
+		        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		        pstmt.setString(1, productbean.getItem()); 
+		        pstmt.setInt(2, productbean.getProduct_code());
+		        pstmt.setInt(3, productbean.getQuantity());
+		        pstmt.setDouble(4, productbean.getProduct_price());
+		        productbean.compute();
+		        pstmt.setDouble(5, productbean.getTotal_price());
+		        pstmt.setString(6,productbean.getManufacturer());
+		        pstmt.setDate(7, date);
+		        pstmt.executeUpdate(); // execute insert statement  
+			} catch (SQLException sqle) {
+				System.out.println("SQLException - addItem: " + sqle.getMessage());
+				return false; 
+			}	
+			return true;
+			
+		}
+	
 	
 	public static ResultSet searchProducts(String search,Connection connection,String[] sortby){
 		ResultSet rs=null;
@@ -112,6 +149,7 @@ public class SQLOperations implements SQLCommands {
 			}	
 			return updated;
 		}
+	
 	public static boolean addItem(ProductBean productbean, Connection connection){
 		try {
 	        PreparedStatement pstmt = connection.prepareStatement(ADD_ITEM);

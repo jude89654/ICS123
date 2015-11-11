@@ -13,8 +13,7 @@ public interface SQLCommands {
 			+ "OR quantity like ?  "
 			+ " OR date_delivered like ?"
 			+ " OR product_code like ?  "; 
-	
-	String SORT_BY_PRODUCT_CODE = "SELECT * FROM product ORDER BY product_code ASC";
-	String SORT_BY_QUANTITY = "SELECT * FROM product ORDER BY quantity DESC";
-	String SORT_BY_DATE=  "SELECT * FROM product ORDER BY date_delivered ASC";
+	String ADD_SOLD = "insert into sold(item, product_code, quantity,product_price, total_price, manufacturer, date_sold) values(?,?,?,?,?,?,?)";
+	String GET_ALL_SOLD = "select * from sold";
+
 }

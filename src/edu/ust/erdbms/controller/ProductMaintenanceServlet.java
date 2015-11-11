@@ -51,7 +51,7 @@ Connection connection;
 				 getServletContext().getRequestDispatcher("/editItem.jsp");;
 			} else if (request.getParameter("action").equals("delete")){
 				int id = Integer.parseInt(request.getParameter("product_code"));
-				
+				SQLOperations.addSoldProduct(SQLOperations.searchProduct(id, connection), connection);
 				SQLOperations.deleteItem(id, connection);
 				ResultSet rs = 
 						  SQLOperations.getAllItems(connection);

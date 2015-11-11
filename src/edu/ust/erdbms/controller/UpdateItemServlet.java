@@ -45,8 +45,11 @@ public class UpdateItemServlet extends HttpServlet {
 			product.setProduct_price(Double.parseDouble(request.getParameter("product_price")));
 			product.compute();
 			
-			
-			
+			ProductBean bean = SQLOperations.searchProduct(Integer.parseInt(request.getParameter("product_code")), connection);
+			if(product.getQuantity()<bean.getQuantity()){
+				bean.setQuantity(bean.getQuantity()-product.getQuantity());
+				SQLOperations.addSoldProduct(bean, connection);
+			}
 			request.setAttribute("today",date_delivered);
 			int recordsAffected = 
 				SQLOperations.updateItem(product, 

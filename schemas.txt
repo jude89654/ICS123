@@ -35,8 +35,46 @@ CREATE TABLE [dbo].[Product](
 
 GO
 
+
 SET ANSI_PADDING OFF
 GO
+
+
+
+====================DB SOLD SCHEMA====================
+
+USE [ProductsDB]
+GO
+
+/****** Object:  Table [dbo].[sold]    Script Date: 11/12/2015 02:43:39 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[sold](
+	[item] [varchar](50) NULL,
+	[product_code] [int] NULL,
+	[quantity] [int] NULL,
+	[product_price] [float] NOT NULL,
+	[total_price] [float] NULL,
+	[manufacturer] [varchar](50) NULL,
+	[date_sold] [date] NULL,
+ CONSTRAINT [PK_sold_1] PRIMARY KEY CLUSTERED 
+(
+	[product_price] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
 
 
 =================LOGIN SCHEMA========================
