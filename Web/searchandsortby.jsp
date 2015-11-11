@@ -8,7 +8,7 @@
 </head>
 <body>
 <form action="searchitem.html">
-	<p><input type="text" name="query"></p>
+	<p>SEARCH<input type="text" name="query"></p>
 	<p>Sort by: </p>
 	product code<input type="checkbox" name="sortby" value="product_code">
 	item<input type="checkbox" name="sortby" value="item">

@@ -46,6 +46,7 @@ Connection connection;
 				  SQLOperations.searchProduct(id, connection);
 				request.setAttribute("productrecord", product);
 				request.setAttribute("today",product.getDate_delivered());
+				request.setAttribute("product_code",id);
 				dispatcher = 
 				 getServletContext().getRequestDispatcher("/editItem.jsp");;
 			} else if (request.getParameter("action").equals("delete")){
