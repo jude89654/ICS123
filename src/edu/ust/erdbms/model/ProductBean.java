@@ -4,6 +4,7 @@ public class ProductBean {
 	private java.sql.Date date_delivered;
 	private String item, manufacturer;
 	private int product_code, quantity;
+	private double product_price,total_price;
 	
 	public java.sql.Date getDate_delivered() {
 		return date_delivered;
@@ -34,5 +35,22 @@ public class ProductBean {
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+	public double getProduct_price() {
+		return product_price;
+	}
+	public void setProduct_price(double product_price) {
+		this.product_price = product_price;
+	}
+	public double getTotal_price() {
+		return total_price;
+	}
+	public void setTotal_price(double total_price) {
+		this.total_price = total_price;
+	}
+	
+	public void compute()
+	{
+		setTotal_price(getProduct_price()*getQuantity());
 	}
 }

@@ -9,11 +9,14 @@
 <body>
 <%if(request.getParameter("status").equals("true")){ %>
 <h1>SUCCESSFUL INSERT</h1>
-<p>Product Code:${productbean.product_code}</p>
+<p>Product Code: ${productbean.product_code}</p>
 <p>item:${productbean.item}</p>
-<p>manufacturer:${productbean.manufacturer}</p>
+<p>Price:${productbean.product_price }</p>
 <p>quantity:${productbean.quantity}</p>
+<p>total price:${productbean.total_price }</p>
+<p>manufacturer:${productbean.manufacturer}</p>
 <p>date delivered:${productbean.date_delivered }</p>
+
 
 <%}else{%>
 <h1>add item FAILED</h1>

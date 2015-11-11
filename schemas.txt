@@ -39,7 +39,7 @@ SET ANSI_PADDING OFF
 GO
 
 
-LOGIN SCHEMA
+=================LOGIN SCHEMA========================
 
 
 CREATE LOGIN [ics123_user3csc] WITH PASSWORD=N'ics123_user3csc', DEFAULT_DATABASE=[master], DEFAULT_LANGUAGE=[us_english], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF

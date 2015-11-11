@@ -21,6 +21,8 @@
 			<th align="center">qty</th>
 			<th align="center">date delivered</th>
 			<th align="center">manufacturer</th>
+			<th align="center">price per product</th>
+			<th align="center">total price</th>
 			<th align="center">Action-Edit</th>
 			<th align="center">Action-Delete</th>
 		</tr>
@@ -35,6 +37,8 @@
 					<td><%=productrecords.getString("quantity")%></td>
 					<td><%=productrecords.getString("date_delivered")%></td>
 					<td><%=productrecords.getString("manufacturer")%></td>
+					<td><%=productrecords.getString("product_price")%></td>
+					<td><%=productrecords.getString("total_price")%></td>
 					<td align="center">
 					  <a href="productmaintenance.html?product_code=<%=productrecords.getInt("product_code")%>&action=edit">
 					  	edit
@@ -49,6 +53,9 @@
 	<% } %>
 		
 	</table></div>
+	<h3>TOTAL QUANTITY:${totalQuantity }</h3>
+	
+	<a href="index.jsp">back to index</a>
 </body>
 </html>
 </body>

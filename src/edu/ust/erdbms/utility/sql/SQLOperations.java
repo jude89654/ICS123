@@ -93,11 +93,13 @@ public class SQLOperations implements SQLCommands {
 		        pstmt.setString(2, product.getItem());
 		        pstmt.setString(3, product.getManufacturer());
 		        pstmt.setInt(4, product.getQuantity()); 
-		        pstmt.setInt(5, id); 
+		        pstmt.setDouble(5, product.getProduct_price()); 
+		        pstmt.setDouble(6, product.getTotal_price()); 
+		        pstmt.setInt(7, id); 
 		        updated = pstmt.executeUpdate();   
 		        connection.commit();
 			} catch (SQLException sqle) {
-				System.out.println("SQLException - updateEmployee: " 
+				System.out.println("SQLException - updateItem: " 
 					+ sqle.getMessage());
 				
 				try {
@@ -119,6 +121,8 @@ public class SQLOperations implements SQLCommands {
 	        pstmt.setString(3, productbean.getManufacturer());
 	        pstmt.setInt(4, productbean.getProduct_code());
 	        pstmt.setInt(5, productbean.getQuantity());
+	        pstmt.setDouble(6,productbean.getProduct_price());
+	        pstmt.setDouble(7, productbean.getTotal_price());
 	        pstmt.executeUpdate(); // execute insert statement  
 		} catch (SQLException sqle) {
 			System.out.println("SQLException - addItem: " + sqle.getMessage());
@@ -178,8 +182,10 @@ public class SQLOperations implements SQLCommands {
 		        	productbean.setDate_delivered(rs.getDate("date_delivered"));
 		        	productbean.setItem(rs.getString("item"));
 		        	productbean.setManufacturer(rs.getString("manufacturer"));
-		        	productbean.setProduct_code(rs.getInt("product_code"));
+		        	productbean.setProduct_code(id);
 		        	productbean.setQuantity(rs.getInt("quantity"));
+		        	productbean.setProduct_price(rs.getDouble("product_price"));
+		        	productbean.compute();
 		        }
 			} catch (SQLException sqle) {
 				System.out.println("SQLException - searchEmployee: " 
@@ -188,6 +194,27 @@ public class SQLOperations implements SQLCommands {
 			}	
 			return productbean;
 		}
+	
+	public static int getTotalQuantity(Connection connection){
+		int total=0;
+		
+		try {
+			PreparedStatement statement= connection.prepareStatement(GET_ALL_ITEMS);
+			ResultSet rs = statement.executeQuery();
+			
+			while(rs.next()){
+				total+=rs.getInt("quantity");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+			
+		
+		
+		return total;
+	}
 	
 	
 	

@@ -15,6 +15,7 @@
 <p>quantity:${productrecord.quantity}</p>
 <p>date delivered:${productrecord.date_delivered }</p>
 
+
 <%}else{%>
 <h1>add item FAILED</h1>
 <%}%>

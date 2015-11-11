@@ -36,10 +36,17 @@ public class UpdateItemServlet extends HttpServlet {
 			
 			String date_deliveredString = request.getParameter("date_delivered");
 			java.sql.Date date_delivered = new java.sql.Date(new SimpleDateFormat("YYYY-MM-dd").parse(date_deliveredString).getTime());
+			
+			product.setProduct_code(Integer.parseInt(request.getParameter("product_code")));
 			product.setDate_delivered(date_delivered);
 			product.setItem(request.getParameter("item"));
 			product.setQuantity(Integer.parseInt(request.getParameter("quantity")));
 			product.setManufacturer(request.getParameter("manufacturer"));
+			product.setProduct_price(Double.parseDouble(request.getParameter("product_price")));
+			product.compute();
+			
+			
+			
 			request.setAttribute("today",date_delivered);
 			int recordsAffected = 
 				SQLOperations.updateItem(product, 
