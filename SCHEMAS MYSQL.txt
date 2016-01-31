@@ -1,0 +1,20 @@
+CREATE USER 'ics123_user3csc'@'localhost' Identified by 'ics123_user3csc';
+GRANT ALL PRIVILEGES ON * . * TO 'ics123_user3csc'@'localhost';
+
+create database ProductsDB;
+USE ProductsDB;
+
+
+/****** Object:  Table dbo.Product    Script Date: 11/11/2015 22:00:43 ******/
+
+
+CREATE TABLE Product(
+	date_delivered date NULL,
+	item varchar(50) NULL,
+	manufacturer varchar(100) NULL,
+	product_code int NOT NULL,
+	quantity int NULL,
+	product_price float NULL,
+	total_price float NULL,
+PRIMARY KEY (product_code)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
