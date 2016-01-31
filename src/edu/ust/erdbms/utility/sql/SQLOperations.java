@@ -15,12 +15,8 @@ import javax.sql.DataSource;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-
-
-
-
-
 import edu.ust.erdbms.utility.sql.SQLCommands;
+import edu.ust.erdbms.model.AccountBean;
 import edu.ust.erdbms.model.ProductBean;
 
 public class SQLOperations implements SQLCommands {
@@ -254,7 +250,52 @@ public class SQLOperations implements SQLCommands {
 		return total;
 	}
 	
+	public static boolean loginCheck(String username, String password, Connection connection){
+	    boolean login = false;
+	    ResultSet rs = null;
+	    try {
+	    	PreparedStatement pstmt =
+					connection.prepareStatement(LOGIN_CHECK);
+		pstmt.setString(1, username);
+		pstmt.setString(2, password);
+		rs=pstmt.executeQuery();
+	    rs = pstmt.getResultSet();
+	    login = rs.first(); 
+	    
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return login;
+	}
 	
-	
+	public static AccountBean searchAdmin(String username,
+			Connection connection) {
+			
+			AccountBean acc= new AccountBean();
+			
+			try{
+				PreparedStatement pstmt =
+							connection.prepareStatement(SEARCH_ADMIN);
+				pstmt.setString(1, username);
+				ResultSet rs=pstmt.executeQuery();
+				
+				while(rs.next()){
+					acc.setUsername(rs.getString("username"));
+					acc.setPassword(rs.getString("password"));
+					acc.setFirstName(rs.getString("firstName"));
+					acc.setLastName(rs.getString("lastName"));
+					acc.setEmail(rs.getString("email"));
+					}
+					
+			}
+			catch(SQLException sqle){
+				System.out.println("SQLException - searchIntern:" 
+						+ sqle.getMessage());
+				
+				return acc;
+			}
+			return acc;
+			
+		}
 	
 }

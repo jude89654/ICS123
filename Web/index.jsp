@@ -70,7 +70,7 @@
              <h1>Management System</h1>
             <hr width="50%">
             <h3>Welcome,</h3>
-            <h3><font color="white">Admin</font> Matt Infantado</h3>
+            <h3><font color="white">Admin</font> ${Admin.firstName} </h3>
                       
             <br>
             <a href="#about" class="btn btn-dark btn-lg">Proceed</a>

@@ -15,5 +15,9 @@ public interface SQLCommands {
 			+ " OR product_code like ?  "; 
 	String ADD_SOLD = "insert into sold(item, product_code, quantity,product_price, total_price, manufacturer, date_sold) values(?,?,?,?,?,?,?)";
 	String GET_ALL_SOLD = "select * from sold";
+	
+	/*LOGIN COMMANDS*/
+	String LOGIN_CHECK="select username, password, email from accounts where username=? and password=?";
+	String SEARCH_ADMIN="select * from accounts where username=?";
 
 }
